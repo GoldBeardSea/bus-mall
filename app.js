@@ -8,6 +8,7 @@ var buttonThree = document.getElementById('button-three');
 var prodImgOne = document.getElementById('one');
 var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
+Product.priorDisplay = [];
 
 
 function Product(name, url) {
@@ -15,6 +16,8 @@ function Product(name, url) {
   this.url = url;
   this.votes = 0;
   this.counter = 0;
+  this.appeared = 0;
+  this.votepercent = 0;
 }
 
 var allProducts = [
@@ -43,14 +46,15 @@ var allProducts = [
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
 var productThree = allProducts[2];
-var previousProduct = {
-  one : null,
-  two : null,
-  three : null,
-};
+// var previousProduct = {
+//   one : null,
+//   two : null,
+//   three : null,
+// };
 
 function productOneFunc() {
-  previousProduct.one = productOne.url;
+  // previousProduct.one = productOne.url;
+  Product.priorDisplay.push(productOne.url);
   counter++;
   productOne.votes++;
   pickNewProduct();
@@ -58,7 +62,7 @@ function productOneFunc() {
 }
 
 function productTwoFunc() {
-  previousProduct.two = productTwo.url;
+  // Product.previousProduct.two = productTwo.url;
   counter++;
   productTwo.votes++;
   pickNewProduct();
@@ -66,7 +70,7 @@ function productTwoFunc() {
 }
 
 function productThreeFunc() {
-  previousProduct.three = productThree.url;
+  // previousProduct.three = productThree.url;
   counter++;
   productThree.votes++;
   pickNewProduct();
