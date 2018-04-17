@@ -43,13 +43,14 @@ var allProducts = [
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
 var productThree = allProducts[2];
-// var previousProduct = {
-//   one: null,
-//   two: null,
-//   three: null,
-// }
+var previousProduct = {
+  one : null,
+  two : null,
+  three : null,
+};
 
 function productOneFunc() {
+  previousProduct.one = productOne.url;
   counter++;
   productOne.votes++;
   pickNewProduct();
@@ -57,6 +58,7 @@ function productOneFunc() {
 }
 
 function productTwoFunc() {
+  previousProduct.two = productTwo.url;
   counter++;
   productTwo.votes++;
   pickNewProduct();
@@ -64,6 +66,7 @@ function productTwoFunc() {
 }
 
 function productThreeFunc() {
+  previousProduct.three = productThree.url;
   counter++;
   productThree.votes++;
   pickNewProduct();
