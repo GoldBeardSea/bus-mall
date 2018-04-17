@@ -11,10 +11,9 @@ var prodImgThree = document.getElementById('three');
 
 
 function Product(name, url) {
-  this.name = 'name';
+  this.name = name;
   this.url = url;
   this.votes = 0;
-  this.iterations = 0;
   this.counter = 0;
 }
 
@@ -30,7 +29,7 @@ var allProducts = [
   new Product('dog duck', 'img/dog-duck.jpg'),
   new Product('dragon meat', 'img/dragon.jpg'),
   new Product('pen', 'img/pen.jpg'),
-  new Product('pet-sweetp', 'img/pet-sweep.jpg'),
+  new Product('pet-sweet', 'img/pet-sweep.jpg'),
   new Product('scissors', 'img/scissors.jpg'),
   new Product('shark', 'img/shark.jpg'),
   new Product('sweep', 'img/sweep.png'),
@@ -44,7 +43,6 @@ var allProducts = [
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
 var productThree = allProducts[2];
-var counter = 0;
 // var previousProduct = {
 //   one: null,
 //   two: null,
@@ -55,18 +53,21 @@ buttonOne.addEventListener('click', function(e) {
   counter++;
   productOne.votes++;
   pickNewProduct();
+  counterLimiter();
 });
 
 buttonTwo.addEventListener('click', function(e) {
   counter++;
   productTwo.votes++;
   pickNewProduct();
+  counterLimiter();
 });
 
 buttonThree.addEventListener('click', function(e) {
   counter++;
   productThree.votes++;
   pickNewProduct();
+  counterLimiter();
 });
 
 function pickNewProduct() {
@@ -88,4 +89,17 @@ function pickNewProduct() {
   }
 }
 
+function counterLimiter () {
+  var resultsList = document.getElementById('results');
+  if (counter === 25)
+    for (var i = 0; i < allProducts.length; i++) {
+      var liEl = document.createElement('li');
+      liEl.textContent = allProducts[i].name+ ' ' + allProducts[i].votes + ' Votes';
+      resultsList.appendChild(liEl);
+    }
+  document.removeEventListener;
+}
+
+counterLimiter();
 pickNewProduct();
+counterLimiter();
