@@ -5,6 +5,9 @@ var counter = 0;
 var buttonOne = document.getElementById('button-one');
 var buttonTwo = document.getElementById('button-two');
 var buttonThree = document.getElementById('button-three');
+var counterOne = document.getElementById('button-one');
+var counterTwo = document.getElementById('button-two');
+var counterThree = document.getElementById('button-three');
 var prodImgOne = document.getElementById('one');
 var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
@@ -49,26 +52,51 @@ var productThree = allProducts[2];
 //   three: null,
 // }
 
-buttonOne.addEventListener('click', function(e) {
+function productOneFunc() {
   counter++;
   productOne.votes++;
   pickNewProduct();
   counterLimiter();
-});
+}
 
-buttonTwo.addEventListener('click', function(e) {
+function productTwoFunc() {
   counter++;
   productTwo.votes++;
   pickNewProduct();
   counterLimiter();
-});
+}
 
-buttonThree.addEventListener('click', function(e) {
+function productThreeFunc() {
   counter++;
   productThree.votes++;
   pickNewProduct();
   counterLimiter();
-});
+}
+
+
+buttonOne.addEventListener('click', productOneFunc);
+// {
+// counter++;
+// productOne.votes++;
+// pickNewProduct();
+// counterLimiter();
+// });
+
+buttonTwo.addEventListener('click', productTwoFunc);
+// {
+// counter++;
+// productTwo.votes++;
+// pickNewProduct();
+// counterLimiter();
+// });
+
+buttonThree.addEventListener('click', productThreeFunc);
+// {
+// counter++;
+// productThree.votes++;
+// pickNewProduct();
+// counterLimiter();
+// });
 
 function pickNewProduct() {
   productOne = allProducts[Math.floor(Math.random() * allProducts.length)];
@@ -97,7 +125,11 @@ function counterLimiter () {
       liEl.textContent = allProducts[i].name+ ' ' + allProducts[i].votes + ' Votes';
       resultsList.appendChild(liEl);
     }
-  document.removeEventListener;
+  if (counter === 25) {
+    buttonOne.removeEventListener('click', productOneFunc);
+    buttonTwo.removeEventListener('click', productTwoFunc);
+    buttonThree.removeEventListener('click', productThreeFunc);
+  }
 }
 
 counterLimiter();
