@@ -1,15 +1,16 @@
 header {
   height: 100px;
   background-color: #444;
-  width: auto;
+  width: 1080px;
 }
 
 body {
   width: auto;
+  height: 400px;
 }
 
 body * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 nav {
@@ -18,8 +19,6 @@ nav {
 
 nav img {
   display: inline-block;
-  margin: 15px;
-  margin-left: 60px;
 }
 
 .navi {
@@ -35,6 +34,7 @@ nav li {
 
 ul img {
   height: 250px;
+  width: 250px;
 }
 
 .container {
@@ -43,10 +43,16 @@ ul img {
   align-content: space-around;
 }
 
-div {
+#divbox {
   float: left;
   clear: left;
+  height: 365px;
+  width: 137px;
+}
+
+div button {
   height: auto;
+  width: auto;
 
 }
 
@@ -54,4 +60,15 @@ div {
   display: flex;
   flex-direction: row;
   align-content: space-between;
+}
+
+p {
+  max-width: 960px;
+}
+
+footer {
+  height: 100px;
+  background-color: #444;
+  width: 1080px;
+  margin-top: 20px;
 }
