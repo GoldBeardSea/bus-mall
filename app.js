@@ -10,7 +10,8 @@ var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
 Product.priorDisplay = [];
 Product.currentDisplay = [];
-
+Product.votes = [];
+Product.names = [];
 
 function Product(name, url) {
   this.name = name;
@@ -18,74 +19,65 @@ function Product(name, url) {
   this.votes = 0;
   this.counter = 0;
   this.appeared = 0;
-  this.votepercent = 0;
+  this.votePercent = 0;
 }
 
 var allProducts = [
-  new Product('bag', 'img/bag.jpg'),
-  new Product('banana', 'img/banana.jpg'),
-  new Product('bathroom', 'img/bathroom.jpg'),
-  new Product('boots', 'img/boots.jpg'),
-  new Product('breakfast', 'img/breakfast.jpg'),
-  new Product('bubblegum', 'img/bubblegum.jpg'),
-  new Product('chair', 'img/chair.jpg'),
-  new Product('cthulu', 'img/cthulhu.jpg'),
-  new Product('dog duck', 'img/dog-duck.jpg'),
-  new Product('dragon meat', 'img/dragon.jpg'),
-  new Product('pen', 'img/pen.jpg'),
-  new Product('pet-sweet', 'img/pet-sweep.jpg'),
-  new Product('scissors', 'img/scissors.jpg'),
-  new Product('shark', 'img/shark.jpg'),
-  new Product('sweep', 'img/sweep.png'),
-  new Product('Tauntaun', 'img/tauntaun.jpg'),
-  new Product('unicorn', 'img/unicorn.jpg'),
-  new Product('tentacle usb', 'img/usb.gif'),
-  new Product('water-can', 'img/water-can.jpg'),
-  new Product('wine-glass', 'img/wine-glass.jpg'),
+  new Product('Bag', 'img/bag.jpg'),
+  new Product('Banana', 'img/banana.jpg'),
+  new Product('Bathroom', 'img/bathroom.jpg'),
+  new Product('Boots', 'img/boots.jpg'),
+  new Product('Breakfast', 'img/breakfast.jpg'),
+  new Product('Bubblegum', 'img/bubblegum.jpg'),
+  new Product('Chair', 'img/chair.jpg'),
+  new Product('Cthulu', 'img/cthulhu.jpg'),
+  new Product('Dog Duckmouth', 'img/dog-duck.jpg'),
+  new Product('Dragon Meat', 'img/dragon.jpg'),
+  new Product('Pen', 'img/pen.jpg'),
+  new Product('Pet-sweet', 'img/pet-sweep.jpg'),
+  new Product('Scissors', 'img/scissors.jpg'),
+  new Product('Shark', 'img/shark.jpg'),
+  new Product('Sweep', 'img/sweep.png'),
+  new Product('Tauntaun Sleeping Bag', 'img/tauntaun.jpg'),
+  new Product('Unicorn', 'img/unicorn.jpg'),
+  new Product('Tentacle Usb drive', 'img/usb.gif'),
+  new Product('Water Can', 'img/water-can.jpg'),
+  new Product('Wine glass', 'img/wine-glass.jpg'),
 ];
+
+Product.prototype.calcPercent = function () {
+  var division = (this.votes / this.appeared);
+  this.votePercent = Math.round(division * 100);
+};
 
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
 var productThree = allProducts[2];
-// var previousProduct = {
-//   one : null,
-//   two : null,
-//   three : null,
-// };
+
 
 function productOneFunc() {
-  // previousProduct.one = productOne.url;
-  // Product.priorDisplay.push(productOne.url);
-  // Product.priorDisplay.push(productTwo.url);
-  // Product.priorDisplay.push(productThree.url);
   counter++;
   productOne.votes++;
+  productOne.appeared++;
   pickNewProduct();
-  // limitRepeat ();
   counterLimiter();
   console.log(Product.priorDisplay);
 }
 
 function productTwoFunc() {
-  // Product.priorDisplay.push(productOne.url);
-  // Product.priorDisplay.push(productTwo.url);
-  // Product.priorDisplay.push(productThree.url);
   counter++;
   productTwo.votes++;
+  productTwo.appeared++;
   pickNewProduct();
-  // limitRepeat ();
   counterLimiter();
   console.log(Product.priorDisplay);
 }
 
 function productThreeFunc() {
-  // Product.priorDisplay.push(productOne.url);
-  // Product.priorDisplay.push(productTwo.url);
-  // Product.priorDisplay.push(productThree.url);
   counter++;
   productThree.votes++;
+  productThree.appeared++;
   pickNewProduct();
-  // limitRepeat ();
   counterLimiter();
   console.log(Product.priorDisplay);
 
@@ -121,25 +113,73 @@ function pickNewProduct() {
   Product.priorDisplay[2] = productThree.url;
 }
 
-// function limitRepeat () {
-//   do {
-//     pickNewProduct();
-//   } while (!Product.priorDisplay.includes(productOne.url) || !Product.priorDisplay.includes(productTwo.url) || !Product.priorDisplay.includes(productThree.url));
-// }
 
 function counterLimiter () {
   var resultsList = document.getElementById('results');
   if (counter === 25) {
     for (var i = 0; i < allProducts.length; i++) {
       var liEl = document.createElement('li');
-      liEl.textContent = allProducts[i].name+ ' ' + allProducts[i].votes + ' Votes';
+      liEl.textContent = allProducts[i].name + ' ' + allProducts[i].votes + ' Votes';
       resultsList.appendChild(liEl);
+      Product.votes.push(allProducts[i].votes);
+      Product.names.push(allProducts[i].name);
     }
     buttonOne.removeEventListener('click', productOneFunc);
     buttonTwo.removeEventListener('click', productTwoFunc);
     buttonThree.removeEventListener('click', productThreeFunc);
+    Product.renderChart();
   }
 }
+
+Product.renderChart = function () {
+  var ctx = document.getElementById('myChart');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Product.names,
+      datasets: [{
+        label: 'Product Votes',
+        data: Product.votes,
+        backgroundColor: ['rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+        ],
+        hoverBackgroundColor: 'black'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+      title: {
+        display: true,
+        text: 'Results'
+      }
+    }
+  });
+};
 
 counterLimiter();
 pickNewProduct();
