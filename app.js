@@ -9,6 +9,7 @@ var prodImgOne = document.getElementById('one');
 var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
 Product.priorDisplay = [];
+Product.currentDisplay = [];
 
 
 function Product(name, url) {
@@ -54,27 +55,40 @@ var productThree = allProducts[2];
 
 function productOneFunc() {
   // previousProduct.one = productOne.url;
-  Product.priorDisplay.push(productOne.url);
+  // Product.priorDisplay.push(productOne.url);
+  // Product.priorDisplay.push(productTwo.url);
+  // Product.priorDisplay.push(productThree.url);
   counter++;
   productOne.votes++;
   pickNewProduct();
+  // limitRepeat ();
   counterLimiter();
+  console.log(Product.priorDisplay);
 }
 
 function productTwoFunc() {
-  // Product.previousProduct.two = productTwo.url;
+  // Product.priorDisplay.push(productOne.url);
+  // Product.priorDisplay.push(productTwo.url);
+  // Product.priorDisplay.push(productThree.url);
   counter++;
   productTwo.votes++;
   pickNewProduct();
+  // limitRepeat ();
   counterLimiter();
+  console.log(Product.priorDisplay);
 }
 
 function productThreeFunc() {
-  // previousProduct.three = productThree.url;
+  // Product.priorDisplay.push(productOne.url);
+  // Product.priorDisplay.push(productTwo.url);
+  // Product.priorDisplay.push(productThree.url);
   counter++;
   productThree.votes++;
   pickNewProduct();
+  // limitRepeat ();
   counterLimiter();
+  console.log(Product.priorDisplay);
+
 }
 
 
@@ -87,32 +101,40 @@ buttonThree.addEventListener('click', productThreeFunc);
 
 function pickNewProduct() {
   productOne = allProducts[Math.floor(Math.random() * allProducts.length)];
-  prodImgOne.src = productOne.url;
   productTwo = allProducts[Math.floor(Math.random() * allProducts.length)];
-  prodImgTwo.src = productTwo.url;
   productThree = allProducts[Math.floor(Math.random() * allProducts.length)];
-  prodImgThree.src = productThree.url;
   while (productOne.url === productTwo.url ||
     productOne.url === productThree.url ||
-    productTwo.url === productThree.url) {
+    productTwo.url === productThree.url || Product.priorDisplay.includes(productOne.url) || Product.priorDisplay.includes(productTwo.url) || Product.priorDisplay.includes(productThree.url)) {
     productOne = allProducts[Math.floor(Math.random() * allProducts.length)];
-    prodImgOne.src = productOne.url;
     productTwo = allProducts[Math.floor(Math.random() * allProducts.length)];
-    prodImgTwo.src = productTwo.url;
     productThree = allProducts[Math.floor(Math.random() * allProducts.length)];
-    prodImgThree.src = productThree.url;
   }
+  Product.currentDisplay.push(productOne.url);
+  Product.currentDisplay.push(productTwo.url);
+  Product.currentDisplay.push(productThree.url);
+  prodImgOne.src = productOne.url;
+  prodImgTwo.src = productTwo.url;
+  prodImgThree.src = productThree.url;
+  Product.priorDisplay[0] = productOne.url;
+  Product.priorDisplay[1] = productTwo.url;
+  Product.priorDisplay[2] = productThree.url;
 }
+
+// function limitRepeat () {
+//   do {
+//     pickNewProduct();
+//   } while (!Product.priorDisplay.includes(productOne.url) || !Product.priorDisplay.includes(productTwo.url) || !Product.priorDisplay.includes(productThree.url));
+// }
 
 function counterLimiter () {
   var resultsList = document.getElementById('results');
-  if (counter === 25)
+  if (counter === 25) {
     for (var i = 0; i < allProducts.length; i++) {
       var liEl = document.createElement('li');
       liEl.textContent = allProducts[i].name+ ' ' + allProducts[i].votes + ' Votes';
       resultsList.appendChild(liEl);
     }
-  if (counter === 25) {
     buttonOne.removeEventListener('click', productOneFunc);
     buttonTwo.removeEventListener('click', productTwoFunc);
     buttonThree.removeEventListener('click', productThreeFunc);
