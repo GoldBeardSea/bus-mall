@@ -120,12 +120,12 @@ function pickNewProduct() {
 
 
 function counterLimiter () {
-  var resultsList = document.getElementById('results');
+  // var resultsList = document.getElementById('results');
   if (counter === 25) {
     for (var i = 0; i < allProducts.length; i++) {
-      var liEl = document.createElement('li');
-      liEl.textContent = allProducts[i].name + ' ' + allProducts[i].votes + ' Votes';
-      resultsList.appendChild(liEl);
+      // var liEl = document.createElement('li');
+      // liEl.textContent = allProducts[i].name + ' ' + allProducts[i].votes + ' Votes';
+      // resultsList.appendChild(liEl);
       Product.votes.push(allProducts[i].votes);
       Product.names.push(allProducts[i].name);
       var division = (allProducts[i].votes / allProducts[i].appeared);
