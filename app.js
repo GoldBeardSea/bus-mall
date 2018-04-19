@@ -8,6 +8,7 @@ var buttonThree = document.getElementById('button-three');
 var prodImgOne = document.getElementById('one');
 var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
+Product.parsedAllProducts = JSON.parse(localStorage.getItem('VoteIteration'));
 Product.priorDisplay = [];
 Product.currentDisplay = [];
 Product.votes = [];
@@ -17,12 +18,11 @@ function Product(name, url) {
   this.name = name;
   this.url = url;
   this.votes = 0;
-  this.counter = 0;
   this.appeared = 0;
   this.votePercent = 0;
 }
 
-var allProducts = [
+var allProducts = Product.parsedAllProducts || [
   new Product('Bag', 'img/bag.jpg'),
   new Product('Banana', 'img/banana.jpg'),
   new Product('Bathroom', 'img/bathroom.jpg'),
@@ -45,10 +45,9 @@ var allProducts = [
   new Product('Wine glass', 'img/wine-glass.jpg'),
 ];
 
-Product.prototype.calcPercent = function () {
-  var division = (this.votes / this.appeared);
-  this.votePercent = Math.round(division * 100);
-};
+// Product.prototype.calcPercent = function () {
+
+// };
 
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
@@ -59,6 +58,8 @@ function productOneFunc() {
   counter++;
   productOne.votes++;
   productOne.appeared++;
+  productTwo.appeared++;
+  productThree.appeared++;
   pickNewProduct();
   counterLimiter();
   console.log(Product.priorDisplay);
@@ -67,7 +68,9 @@ function productOneFunc() {
 function productTwoFunc() {
   counter++;
   productTwo.votes++;
+  productOne.appeared++;
   productTwo.appeared++;
+  productThree.appeared++;
   pickNewProduct();
   counterLimiter();
   console.log(Product.priorDisplay);
@@ -76,6 +79,8 @@ function productTwoFunc() {
 function productThreeFunc() {
   counter++;
   productThree.votes++;
+  productOne.appeared++;
+  productTwo.appeared++;
   productThree.appeared++;
   pickNewProduct();
   counterLimiter();
@@ -115,19 +120,24 @@ function pickNewProduct() {
 
 
 function counterLimiter () {
-  var resultsList = document.getElementById('results');
+  // var resultsList = document.getElementById('results');
   if (counter === 25) {
     for (var i = 0; i < allProducts.length; i++) {
-      var liEl = document.createElement('li');
-      liEl.textContent = allProducts[i].name + ' ' + allProducts[i].votes + ' Votes';
-      resultsList.appendChild(liEl);
+      // var liEl = document.createElement('li');
+      // liEl.textContent = allProducts[i].name + ' ' + allProducts[i].votes + ' Votes';
+      // resultsList.appendChild(liEl);
       Product.votes.push(allProducts[i].votes);
       Product.names.push(allProducts[i].name);
+      var division = (allProducts[i].votes / allProducts[i].appeared);
+      var votePercent = Math.round(division * 100);
+      allProducts[i].votePercent = votePercent;
     }
     buttonOne.removeEventListener('click', productOneFunc);
     buttonTwo.removeEventListener('click', productTwoFunc);
     buttonThree.removeEventListener('click', productThreeFunc);
+    localStorage.setItem('VoteIteration', JSON.stringify(allProducts));
     Product.renderChart();
+    // localStorage.setItem('VoteIteration', JSON.stringify(allProducts));
   }
 }
 
