@@ -8,6 +8,7 @@ var buttonThree = document.getElementById('button-three');
 var prodImgOne = document.getElementById('one');
 var prodImgTwo = document.getElementById('two');
 var prodImgThree = document.getElementById('three');
+Product.parsedAllProducts = JSON.parse(localStorage.getItem('VoteIteration'));
 Product.priorDisplay = [];
 Product.currentDisplay = [];
 Product.votes = [];
@@ -21,7 +22,7 @@ function Product(name, url) {
   this.votePercent = 0;
 }
 
-var allProducts = [
+var allProducts = Product.parsedAllProducts || [
   new Product('Bag', 'img/bag.jpg'),
   new Product('Banana', 'img/banana.jpg'),
   new Product('Bathroom', 'img/bathroom.jpg'),
@@ -134,7 +135,9 @@ function counterLimiter () {
     buttonOne.removeEventListener('click', productOneFunc);
     buttonTwo.removeEventListener('click', productTwoFunc);
     buttonThree.removeEventListener('click', productThreeFunc);
+    localStorage.setItem('VoteIteration', JSON.stringify(allProducts));
     Product.renderChart();
+    // localStorage.setItem('VoteIteration', JSON.stringify(allProducts));
   }
 }
 
