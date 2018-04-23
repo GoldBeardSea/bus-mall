@@ -45,10 +45,6 @@ var allProducts = Product.parsedAllProducts || [
   new Product('Wine glass', 'img/wine-glass.jpg'),
 ];
 
-// Product.prototype.calcPercent = function () {
-
-// };
-
 var productOne = allProducts[0];
 var productTwo = allProducts[1];
 var productThree = allProducts[2];
@@ -180,6 +176,11 @@ Product.renderChart = function () {
         yAxes: [{
           ticks: {
             beginAtZero: true
+          }
+        }],
+        xAxes:[{
+          ticks: {
+            autoSkip: false
           }
         }]
       },
