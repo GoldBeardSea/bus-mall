@@ -84,13 +84,9 @@ function productThreeFunc() {
 
 }
 
-
 buttonOne.addEventListener('click', productOneFunc);
-
 buttonTwo.addEventListener('click', productTwoFunc);
-
 buttonThree.addEventListener('click', productThreeFunc);
-
 
 function pickNewProduct() {
   productOne = allProducts[Math.floor(Math.random() * allProducts.length)];
