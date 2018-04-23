@@ -31,7 +31,6 @@ nav img {
 nav li {
   display: inline-block;
   line-height: 70px;
-  /* padding: 0 45px; */
   text-align: center;
   background-color: #ff0000;
   margin-right: 30px;
@@ -53,8 +52,8 @@ li a:hover {
 }
 
 ul img {
-  height: 250px;
-  width: 250px;
+  height: 260px;
+  width: 260px;
   margin: 15px;
 }
 
@@ -62,21 +61,21 @@ ul img {
   display: flex;
   flex-direction: row;
   align-content: space-evenly;
-  margin: 40px 40px;
+  margin: 40px 40px 0px 40px
 }
 
 div button {
+  display: block;
   height: auto;
-  width: 960px;
+  width: 360px;
   margin: auto;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
 }
 
 .button {
-  /* display: flex; */
-  /* flex-direction: row; */
-  /* align-content: space-between; */
   margin: auto;
-  display: inline-block;
   border: none;
   padding: 15px 32px;
   text-align: center;
@@ -120,4 +119,10 @@ footer {
   background-color: rgb(3, 191, 248);
   width: 1080px;
   margin-top: 20px;
+}
+
+footer ul {
+  width: fit-content;
+  margin: auto;
+  padding: 10px;
 }
