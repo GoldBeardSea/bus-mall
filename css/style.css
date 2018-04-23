@@ -1,12 +1,13 @@
 header {
   height: 100px;
-  background-color: #444;
+  background-color: rgb(3, 191, 248);
   width: 1080px;
 }
 
 body {
-  width: auto;
+  width: 1080px;
   height: 400px;
+  background-color: rgba(41, 189, 189, 0.4);
 }
 
 body * {
@@ -19,6 +20,8 @@ nav {
 
 nav img {
   display: inline-block;
+  width: 200px;
+  height: 70px;
 }
 
 .navi {
@@ -98,7 +101,7 @@ p {
 
 footer {
   height: 100px;
-  background-color: #444;
+  background-color: rgb(3, 191, 248);
   width: 1080px;
   margin-top: 20px;
 }
